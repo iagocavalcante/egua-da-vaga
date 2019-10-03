@@ -32,8 +32,8 @@
     "vue-apollo": "3.0.0-rc.1"
   },
   "devDependencies": {
-    "@babel/core": "7.5.4",
-    "@babel/preset-env": "7.5.4",
+    "@babel/core": "7.6.2",
+    "@babel/preset-env": "7.6.2",
     "babel-loader": "8.0.6",
     "babel-traverse": "6.26.0",
     "babel-types": "6.26.0",
