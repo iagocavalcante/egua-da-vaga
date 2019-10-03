@@ -42,7 +42,7 @@
     "copy-webpack-plugin": "5.0.4",
     "css-loader": "3.2.0",
     "lazy": "1.0.11",
-    "nativescript-dev-webpack": "0.24.1",
+    "nativescript-dev-webpack": "1.2.1",
     "nativescript-vue-template-compiler": "2.3.0",
     "nativescript-worker-loader": "0.9.5",
     "node-sass": "4.12.0",
