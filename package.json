@@ -23,7 +23,7 @@
     "graphql": "14.5.8",
     "graphql-tag": "2.10.1",
     "nativescript-socketio": "3.3.1",
-    "nativescript-theme-core": "1.0.6",
+    "nativescript-theme-core": "2.0.24",
     "nativescript-toasty": "2.0.1",
     "nativescript-ui-sidedrawer": "7.0.2",
     "nativescript-vue": "2.4.0",
