@@ -9,3 +9,5 @@ hooks
 platforms
 
 apk-keys
+
+.env
