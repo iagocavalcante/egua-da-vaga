@@ -1,17 +1,17 @@
 <template>
-  <Page>
-    <ActionBar backgroundColor="#44557f" flat="true">
+  <Page androidStatusBarBackground="#e6197f">
+    <ActionBar backgroundColor="#F80577" flat="true">
       <StackLayout orientation="vertical" width="100%" height="100%"
-        backgroundColor="#44557f"
+        backgroundColor="#F80577"
       >
-        <StackLayout backgroundColor="#44557f">
-          <StackLayout #searchRow orientation="horizontal"
+        <StackLayout backgroundColor="#F80577">
+          <StackLayout 
+              orientation="horizontal"
               marginTop="5">
             <TextField backgroundColor="white" paddingLeft="20"
               borderRadius="20" v-model="search" width="80%"
-              height="40" fontSize="14" hint="Search"></TextField>
-            <Image src="https://img.icons8.com/cotton/2x/search--v2.png" height="30"
-              width="30" marginLeft="10"></Image>
+              hint="Procurar vaga"
+              height="40" fontSize="14"></TextField>
           </StackLayout>
         </StackLayout>
       </StackLayout>
@@ -20,8 +20,8 @@
     <ScrollView orientation="vertical" v-else>
       <FlexboxLayout flexDirection="column">
         <FlexboxLayout class="box" flexDirection="row" flexWrap="wrap" v-for="(item, index) in repository.issues.edges" :key="index">
-          <Label class="" textWrap="true" height="70" :text="item.node.title" />
-          <Label class="label" height="20" :text="label.node.name" :backgroundColor="`#${label.node.color}`" :key="i" v-for="(label, i) in item.node.labels.edges" />
+          <Label class="" textWrap="true" :text="item.node.title" />
+          <Label class="label" :text="label.node.name" :backgroundColor="`#${label.node.color}`" :key="i" v-for="(label, i) in item.node.labels.edges" />
           <ScrollView orientation="horizontal">
             <HtmlView :html="item.node.bodyHTML"/>
           </ScrollView>
@@ -75,6 +75,36 @@ export default {
         }
       }
     },
+    repositorySearch: {
+      query: gql`
+        query repositoryListJobs ($search: String!) {
+          search(first: 20, query: $search, type: ISSUE) {
+            edges {
+              node {
+                ... on Issue {
+                  title
+                  url
+                  bodyHTML
+                  labels(first:10) {
+                    edges {
+                      node {
+                        name,
+                        color
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      `,
+      variables() {
+        return {
+          search: `${this.repositoryName}/vagas is:issue is:open ${this.search}`
+        }
+      }
+    },
   },
 }
 </script>
@@ -92,7 +122,7 @@ export default {
     margin-top: 5px;
     margin-bottom: 15px;
     font-size: 14;
-    color: #1d1b1b;
+    color: #fefefe;
     box-shadow: 1px 2px 7px rgba(0, 0, 0, 0.14);
     text-align: center;
   }
@@ -100,7 +130,7 @@ export default {
   .box {
     padding: 20;
     margin: 15;
-    box-shadow: 5px 10px #646464;
+    box-shadow: 5px 10px #fefefe;
   }
 
   .title {
