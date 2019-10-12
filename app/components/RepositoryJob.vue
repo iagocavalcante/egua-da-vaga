@@ -6,9 +6,9 @@
           @tap="goTo(repository.name)"
         >
           <Image stretch="aspectFill" class="album-image" :src="repository.imageUrl" />
-          <FlexboxLayout class="border-card-text" flexDirection="column" backgroundColor="#3c495e" marginTop="15">
+          <FlexboxLayout class="border-card-text" flexDirection="column" backgroundColor="#F80577" marginTop="15">
             <Label textWrapt="true" alignSelf="center" fontSize="26" class="font-weight-bold"  
-                color="#ffffff" :text="repository.title"></Label>
+                color="#fefefe" :text="repository.title"></Label>
           </FlexboxLayout>
         </StackLayout>
     </StackLayout>

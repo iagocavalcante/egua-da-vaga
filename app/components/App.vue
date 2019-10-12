@@ -1,26 +1,14 @@
 <template>
-	<Page>
-		<!-- <ActionBar>
+	<Page androidStatusBarBackground="#e6197f">
+		<ActionBar backgroundColor="#F80577">
 			<GridLayout width="100%" columns="auto, *">
-				<Label text="" @tap="$refs.drawer.nativeView.showDrawer()" col="0"/>
-				<Label class="title" text="Vagas Github!"  col="1"/>
+				<Label class="title" text="Égua da Vaga!"  col="1"/>
 			</GridLayout>
-		</ActionBar> -->
+		</ActionBar>
 
-		<RadSideDrawer ref="drawer">
-			<StackLayout ~drawerContent backgroundColor="#ffffff">
-				<Label  textWrap="true"
-					style="background-color: green; 
-					font-size: 30; 
-					text-align: center;
-					color: white" 
-					text="Hello from SFC w/Router - HOME PAGE">
-				</Label>
-			</StackLayout>
-			<GridLayout ~mainContent columns="*" rows="*">
-				<RepositoryJob />
-			</GridLayout>
-		</RadSideDrawer>
+		<GridLayout ~mainContent columns="*" rows="*">
+			<RepositoryJob />
+		</GridLayout>
 	</Page>
 </template>
 
@@ -46,6 +34,8 @@
 		}
 
     .title {
+			font-size: 20;
+			color: #fefefe;
 			text-align: left;
 			padding-left: 16;
     }

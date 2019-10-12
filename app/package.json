@@ -1,8 +1,9 @@
 {
   "android": {
-    "v8Flags": "--expose_gc"
+    "v8Flags": "--expose_gc",
+    "markingMode": "none"
   },
   "main": "main",
-  "name": "jobs-issue",
+  "name": "egua-da-vaga",
   "version": "1.0.0"
 }
