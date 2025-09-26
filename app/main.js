@@ -1,6 +1,6 @@
 import Vue from 'nativescript-vue'
 import App from './components/App'
-import VueDevtools from 'nativescript-vue-devtools'
+// import VueDevtools from 'nativescript-vue-devtools'
 
 import ApolloClient from 'apollo-boost'
 import VueApollo from 'vue-apollo';
@@ -24,9 +24,10 @@ const apolloProvider = new VueApollo({
   defaultClient: client,
 })
 
-if(TNS_ENV !== 'production') {
-  Vue.use(VueDevtools)
-}
+// Temporarily disabled due to Node.js polyfill issues
+// if(TNS_ENV !== 'production') {
+//   Vue.use(VueDevtools)
+// }
 // Prints Vue logs when --env.production is *NOT* set while building
 Vue.config.silent = (TNS_ENV === 'production')
 

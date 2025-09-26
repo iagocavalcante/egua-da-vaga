@@ -83,9 +83,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700);
-@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic);
-
 .album-image {
   background-repeat: no-repeat;
   background-size: cover;
