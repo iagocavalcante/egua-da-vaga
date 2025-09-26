@@ -1,11 +1,17 @@
-# JetBrains project files
-.idea
+# Dependencies
+node_modules/
 
-# NPM
-node_modules
+# NativeScript
+platforms/
+hooks/
 
-# NativeScript application
-hooks
-platforms
-apk-keys
+# Environment Configuration (contains sensitive tokens)
+app/config/env.js
+.env.local
 
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db

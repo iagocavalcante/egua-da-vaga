@@ -20,6 +20,13 @@ module.exports = (env) => {
 					}
 				};
 			});
+
+		// Define TNS_ENV global variable
+		config.plugin('DefinePlugin').tap(args => {
+			const defines = args[0] || {};
+			defines.TNS_ENV = JSON.stringify(env.production ? 'production' : 'development');
+			return [defines];
+		});
 	});
 
 	return webpack.resolveConfig();

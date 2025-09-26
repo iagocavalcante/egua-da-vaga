@@ -2,7 +2,7 @@
   "name": "egua-da-vaga",
   "version": "1.0.0",
   "description": "A native application built with NativeScript-Vue",
-  "author": "Iago Cavalcante <iagoangelimc@gmail.com>",
+  "author": "Iago Cavalcante <iagocavalcante@hey.com>",
   "license": "MIT",
   "dependencies": {
     "@nativescript/core": "~8.9.0",

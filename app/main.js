@@ -3,7 +3,8 @@ import App from './components/App'
 // import VueDevtools from 'nativescript-vue-devtools'
 
 import ApolloClient from 'apollo-boost'
-import VueApollo from 'vue-apollo';
+import VueApollo from 'vue-apollo'
+import { config } from './config/env'
 
 
 const client = new ApolloClient({
@@ -11,7 +12,7 @@ const client = new ApolloClient({
   request: operation => {
     operation.setContext({
       headers: {
-        authorization: process.env.GITHUB_API_KEY
+        authorization: `Bearer ${config.GITHUB_API_KEY}`
       },
     });
   }
