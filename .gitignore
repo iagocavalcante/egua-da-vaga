@@ -7,7 +7,12 @@ hooks/
 
 # Environment Configuration (contains sensitive tokens)
 app/config/env.js
+.env
 .env.local
+
+# Android Keystore (contains sensitive signing keys)
+*.keystore
+*.jks
 
 # Logs
 *.log

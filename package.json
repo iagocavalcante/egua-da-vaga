@@ -32,5 +32,16 @@
     "sass": "^1.77.1",
     "vue-loader": "^17.4.2"
   },
-  "main": "./app/main.js"
+  "main": "./app/main.js",
+  "scripts": {
+    "clean": "ns clean",
+    "android": "ns run android",
+    "ios": "ns run ios",
+    "build:android": "source .env && ns build android --release --key-store-path $ANDROID_KEYSTORE_PATH --key-store-password $ANDROID_KEYSTORE_PASSWORD --key-store-alias $ANDROID_KEY_ALIAS --key-store-alias-password $ANDROID_KEY_PASSWORD",
+    "build:android:debug": "ns build android",
+    "build:ios": "ns build ios --release --for-device",
+    "build:ios:debug": "ns build ios",
+    "prepare:android": "ns prepare android",
+    "prepare:ios": "ns prepare ios"
+  }
 }
