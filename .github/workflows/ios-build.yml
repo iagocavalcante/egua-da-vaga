@@ -76,7 +76,25 @@ jobs:
           path: platforms/ios/build/Debug-iphoneos/*.ipa
           retention-days: 30
 
+      - name: Publish to TestFlight
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+          APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
+        run: |
+          # Save API key to file
+          echo "$APP_STORE_CONNECT_API_KEY_CONTENT" > AuthKey.p8
+          
+          # Upload to TestFlight using xcrun altool
+          xcrun altool --upload-app \
+            --type ios \
+            --file platforms/ios/build/Debug-iphoneos/*.ipa \
+            --apiKey "$APP_STORE_CONNECT_API_KEY_ID" \
+            --apiIssuer "$APP_STORE_CONNECT_API_ISSUER_ID"
+
       - name: Cleanup keychain
         if: always()
         run: |
           security delete-keychain build.keychain || true
+          rm -f AuthKey.p8 || true

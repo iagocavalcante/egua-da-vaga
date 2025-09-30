@@ -44,6 +44,27 @@ jobs:
       - name: Add Android platform
         run: ns platform add android
 
+      - name: Validate Secrets
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
+        run: |
+          if [ -z "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" ]; then
+            echo "❌ Error: ANDROID_KEYSTORE_BASE64 secret is not set"
+            exit 1
+          fi
+          if [ -z "${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" ]; then
+            echo "❌ Error: ANDROID_KEYSTORE_PASSWORD secret is not set"
+            exit 1
+          fi
+          if [ -z "${{ secrets.ANDROID_KEY_ALIAS }}" ]; then
+            echo "❌ Error: ANDROID_KEY_ALIAS secret is not set"
+            exit 1
+          fi
+          if [ -z "${{ secrets.ANDROID_KEY_PASSWORD }}" ]; then
+            echo "❌ Error: ANDROID_KEY_PASSWORD secret is not set"
+            exit 1
+          fi
+          echo "✅ All required secrets are configured"
+
       - name: Decode Keystore
         if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
         run: |
@@ -57,9 +78,33 @@ jobs:
         if: github.event_name == 'pull_request'
         run: ns build android
 
+      - name: Build Android AAB (for Play Store)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: ns build android --release --aab --key-store-path android.keystore --key-store-password "${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" --key-store-alias "${{ secrets.ANDROID_KEY_ALIAS }}" --key-store-alias-password "${{ secrets.ANDROID_KEY_PASSWORD }}"
+
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
+        if: github.event_name == 'push' || github.event_name == 'pull_request'
         with:
           name: android-apk
           path: platforms/android/app/build/outputs/apk/**/*.apk
           retention-days: 30
+
+      - name: Upload AAB artifact
+        uses: actions/upload-artifact@v4
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        with:
+          name: android-aab
+          path: platforms/android/app/build/outputs/bundle/**/*.aab
+          retention-days: 30
+
+      - name: Publish to Google Play Store
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: dev.iagocavalcante.eguadavaga
+          releaseFiles: platforms/android/app/build/outputs/bundle/release/*.aab
+          track: internal
+          status: completed
+          inAppUpdatePriority: 2
