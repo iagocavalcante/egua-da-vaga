@@ -27,6 +27,14 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK components
+        run: |
+          sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
+          sdkmanager --licenses
+
       - name: Install dependencies
         run: npm ci
 
@@ -35,12 +43,6 @@ jobs:
 
       - name: Add Android platform
         run: ns platform add android
-
-      - name: Build Android Debug APK
-        run: ns build android --release --key-store-path android.keystore --key-store-password "${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" --key-store-alias "${{ secrets.ANDROID_KEY_ALIAS }}" --key-store-alias-password "${{ secrets.ANDROID_KEY_PASSWORD }}"
-        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
-        env:
-          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
 
       - name: Decode Keystore
         if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
